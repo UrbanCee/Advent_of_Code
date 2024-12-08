@@ -19,6 +19,6 @@ void day4()
         std::istringstream in(line);
         std::istream_iterator<int> numberIt(in);
     }
-    std::cout << "Day4 task1: ";
-    std::cout << "Day4 task2: ";
+    std::cout << "Day4 task1: " << std::endl;
+    std::cout << "Day4 task2: " << std::endl;
 }
