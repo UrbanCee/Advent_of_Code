@@ -47,5 +47,7 @@ void day9();
 void day10();
 void day11();
 
+void aoc2023();
+
 
 #endif // ADVENT_OF_CODE_H

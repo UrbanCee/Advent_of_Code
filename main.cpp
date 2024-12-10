@@ -2,6 +2,7 @@
 
 int main()
 {
+    aoc2023();
     //day1();
     //day2();
     //day3();
@@ -12,7 +13,7 @@ int main()
     //cout << "Day7 Task 2: " << day7(2)  << endl;
     //day8();
     //day9();
-    day10();
+    //day10();
     //day11();
     return 0;
 }
