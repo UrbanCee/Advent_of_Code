@@ -21,12 +21,14 @@ public:
 
 class Coord {
 public:
+    Coord():width(0),height(0){}
     Coord(int width,int height):width(width),height(height){}
     int x(int index)const{return index % width;}
     int y(int index)const{return index / width;}
     Vec toVec(int index)const{return Vec(x(index),y(index));}
     int toIndex(const Vec&v)const{return v.x+v.y*width;}
     bool outOfBounds(const Vec&v)const{return v.x<0||v.x>=width||v.y<0||v.y>=height;}
+    Coord &operator=(const Coord &) = default;
 private:
     int width;
     int height;
@@ -43,6 +45,7 @@ long long day7(int subtask);
 void day8();
 void day9();
 void day10();
+void day11();
 
 
 #endif // ADVENT_OF_CODE_H

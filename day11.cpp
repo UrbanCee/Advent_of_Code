@@ -1,0 +1,24 @@
+#include "Advent_of_Code.h"
+
+#include <iostream>
+#include <fstream>
+#include <filesystem>
+#include <cmath>
+#include <iterator>
+#include <numeric>
+#include <sstream>
+
+
+
+void day11()
+{
+    std::ifstream inputFile(std::filesystem::path("../../inputs/day11_training.txt"));
+    //std::ifstream inputFile(std::filesystem::path("../../inputs/day11.txt"));
+    for (std::string line; std::getline(inputFile,line);)
+    {
+        std::istringstream in(line);
+        std::istream_iterator<int> numberIt(in);
+    }
+    std::cout << "Day11 task1: " << std::endl;
+    std::cout << "Day11 task2: " << std::endl;
+}

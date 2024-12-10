@@ -6,6 +6,7 @@
 #include <cmath>
 #include <iterator>
 #include <numeric>
+#include <list>
 #include <regex>
 #include <sstream>
 
@@ -27,6 +28,22 @@ bool goodQueue(const std::vector<int> &queue,const std::unordered_multimap<int,i
     return true;
 }
 
+bool lessThan(const std::unordered_multimap<int,int> &rules,int a, int b)
+{
+    for (auto [it, ite]=rules.equal_range(a);it!=ite;it++)
+    {
+        if (it->second==b)
+            return true;
+    }
+    return false;
+}
+
+void swap(std::vector<int> &vec,int pos1, int pos2)
+{
+    auto tmp = vec.at(pos1);
+    vec[pos1]=vec.at(pos2);
+    vec[pos2]=tmp;
+}
 
 void day5()
 {
@@ -55,19 +72,21 @@ void day5()
     }
 
     int sumGood=0;
+    int sumCorr=0;
     for (auto &&queue : printQueues)
     {
         if (goodQueue(queue,keySmallerThanValue))
             sumGood+=queue.at(queue.size()/2);
         else{
-
+            for (int i=0;i<queue.size();i++){
+                for (int j=i+1;j<queue.size();j++){
+                    if (lessThan(keySmallerThanValue,queue[j],queue[i]))
+                        swap(queue,i,j);
+                }
+            }
+            sumCorr+=queue.at(queue.size()/2);;
         }
-        /*for (auto entry : queue)
-        {
-            std::cout << entry << ", ";
-        }
-        std::cout << " Sum:" << sumGood << std::endl;*/
     }
     std::cout << "Day5 task1: " << sumGood << std::endl;
-    std::cout << "Day5 task2: " << std::endl;
+    std::cout << "Day5 task2: " << sumCorr << std::endl;
 }

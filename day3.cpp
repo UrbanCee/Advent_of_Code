@@ -7,17 +7,9 @@
 #include <regex>
 #include <sstream>
 
-
-
-void day3()
+long long multSolution(const std::string &input)
 {
-    //std::ifstream inputFile(std::filesystem::path("../../inputs/day3_training.txt"));
-    std::ifstream inputFile(std::filesystem::path("../../inputs/day3.txt"));
-    std::stringstream ss;
-    ss << inputFile.rdbuf();
-    std::string input = ss.str();
     std::regex reg("mul\\((\\d{1,3}),(\\d{1,3})\\)");
-    std::regex num("(\\d{1,3})");
     auto match_begin =
         std::sregex_iterator(input.begin(), input.end(), reg);
     auto match_end = std::sregex_iterator();
@@ -32,6 +24,18 @@ void day3()
         }
         acc+=prod;
     }
-    std::cout << "Day3 task1: " << acc << std::endl;
-    std::cout << "Day3 task2: " << std::endl;
+    return acc;
+}
+
+void day3()
+{
+    //std::ifstream inputFile(std::filesystem::path("../../inputs/day3_training2.txt"));
+    std::ifstream inputFile(std::filesystem::path("../../inputs/day3.txt"));
+    std::stringstream ss;
+    ss << inputFile.rdbuf();
+    std::string input = ss.str();
+    std::cout << "Day3 task1: " << multSolution(input) << std::endl;
+    input.erase(std::remove(input.begin(), input.end(), '\n'), input.cend());
+    std::regex dontreg("don't\\(\\).*?do\\(\\)");
+    std::cout << "Day3 task2: " << multSolution(std::regex_replace(input,dontreg,"")) << std::endl;
 }
