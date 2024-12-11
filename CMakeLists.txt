@@ -22,6 +22,7 @@ add_executable(Advent_of_Code main.cpp
     2023/main2023.cpp
     2023/AoC2023.h
     2023/day1.cpp
+    day12.cpp
 )
 
 include(GNUInstallDirs)

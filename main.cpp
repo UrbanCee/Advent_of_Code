@@ -2,7 +2,7 @@
 
 int main()
 {
-    aoc2023();
+    //aoc2023();
     //day1();
     //day2();
     //day3();
@@ -14,6 +14,7 @@ int main()
     //day8();
     //day9();
     //day10();
-    //day11();
+    day11();
+    //day12();
     return 0;
 }
