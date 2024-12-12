@@ -17,6 +17,23 @@ public:
     friend Vec operator-(Vec lhs,const Vec&rhs){lhs.x-=rhs.x;lhs.y-=rhs.y;return lhs;}
     friend Vec operator*(int lhs,Vec rhs){rhs.x*=lhs;rhs.y*=lhs;return rhs;}
     Vec& operator=(const Vec&other){x=other.x;y=other.y;return *this;}
+    bool operator==(const Vec&other){return x==other.x && y==other.y;}
+};
+
+template <>
+struct std::hash<Vec>
+{
+    std::size_t operator()(const Vec& k) const
+    {
+        using std::hash;
+
+        // Compute individual hash values for first,
+        // second and third and combine them using XOR
+        // and bit shifting:
+
+        return ((hash<int>()(k.x))
+                 ^ (hash<int>()(k.y)));
+    }
 };
 
 
@@ -30,7 +47,6 @@ public:
     int toIndex(const Vec&v)const{return v.x+v.y*width;}
     bool outOfBounds(const Vec&v)const{return v.x<0||v.x>=width||v.y<0||v.y>=height;}
     Coord &operator=(const Coord &) = default;
-private:
     int width;
     int height;
 };
