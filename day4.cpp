@@ -27,20 +27,9 @@ void output(std::string playfield, int height, int width)
 
 void day4()
 {
-    //std::ifstream inputFile(std::filesystem::path("../../inputs/day4_training.txt"));
-    std::ifstream inputFile(std::filesystem::path("../../inputs/day4.txt"));
-    int width = 0;
-    int height = 0;
-    std::string playfield;
-    for (std::string line; std::getline(inputFile,line);)
-    {
-        if (height==0)
-            width = line.size();
-        if (line.size()==width)
-            height++;
-        playfield.append(line);
-    }
-    Coord c(width,height);
+    Coord c;
+    //std::string playfield = file2LongStringWithCoords("../../inputs/day4_training.txt",c);
+    std::string playfield = file2LongStringWithCoords("../../inputs/day4.txt",c);
     int count_1=0;
     for (int i=0;i<playfield.size();i++)
     {

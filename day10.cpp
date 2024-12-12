@@ -10,7 +10,7 @@
 #include <sstream>
 #include <stack>
 
-std::array<Vec,4> dirs = {{{1,0},{0,1},{-1,0},{0,-1}}};
+static std::array<Vec,4> dirs = {{{1,0},{0,1},{-1,0},{0,-1}}};
 
 class TopoMap{
 public:
