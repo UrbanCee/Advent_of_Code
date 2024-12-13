@@ -15,7 +15,7 @@ public:
     Vec_t(const Vec_t&vec):x(vec.x),y(vec.y){}
     friend Vec_t operator+(Vec_t lhs,const Vec_t&rhs){lhs.x+=rhs.x;lhs.y+=rhs.y;return lhs;}
     friend Vec_t operator-(Vec_t lhs,const Vec_t&rhs){lhs.x-=rhs.x;lhs.y-=rhs.y;return lhs;}
-    friend Vec_t operator*(int lhs,Vec_t rhs){rhs.x*=lhs;rhs.y*=lhs;return rhs;}
+    friend Vec_t operator*(T lhs,Vec_t rhs){rhs.x*=lhs;rhs.y*=lhs;return rhs;}
     Vec_t& operator=(const Vec_t&other){x=other.x;y=other.y;return *this;}
     bool operator==(const Vec_t&other)const {return x==other.x && y==other.y;}
 };

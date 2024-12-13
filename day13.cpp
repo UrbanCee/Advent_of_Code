@@ -28,15 +28,15 @@ long long task1(const std::vector<Machine> &machines)
     long long tokens=0;
     for (auto &&machine:machines)
     {
-        double det = (double) machine.a.x*(double) machine.b.y-(double) machine.b.x*(double) machine.a.y;
+        long long det = machine.a.x*machine.b.y-machine.b.x*machine.a.y;
         if (det==0){
             std::cout << "zeroroooo" << std::endl;
             tokens+=machine.prize.x/machine.b.x;
             continue;
         }
-        double na = ((double) machine.prize.x*machine.b.y-(double) machine.prize.y*machine.b.x)/det;
-        double nb = (-(double) machine.prize.x*machine.a.y+(double) machine.prize.y*machine.a.x)/det;
-        if ((long long)na*machine.a+(long long)nb*machine.b==machine.prize)
+        long long na = (machine.prize.x*machine.b.y-machine.prize.y*machine.b.x)/det;
+        long long nb = (-machine.prize.x*machine.a.y+machine.prize.y*machine.a.x)/det;
+        if (na*machine.a+nb*machine.b==machine.prize)
         {
             tokens+=na*3+nb;
         }
@@ -73,8 +73,8 @@ void day13()
     std::cout << "Day13 task1: " << task1(machines) << std::endl;
     for (auto &&machine : machines)
     {
-        //machine.prize.x+=10000000000000;
-        //machine.prize.y+=10000000000000;
+        machine.prize.x+=10000000000000;
+        machine.prize.y+=10000000000000;
     }
     std::cout << "Day13 task2: "  << task1(machines) << std::endl;
 }
