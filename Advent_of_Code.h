@@ -4,21 +4,24 @@
 #include<vector>
 #include<string>
 
-
-class Vec{
+template <typename T>
+class Vec_t{
 public:
-    int x{};
-    int y{};
+    T x{};
+    T y{};
 
-    Vec(int x, int y):x{x},y{y}{}
-    Vec():x{0},y{0}{}
-    Vec(const Vec&vec):x(vec.x),y(vec.y){}
-    friend Vec operator+(Vec lhs,const Vec&rhs){lhs.x+=rhs.x;lhs.y+=rhs.y;return lhs;}
-    friend Vec operator-(Vec lhs,const Vec&rhs){lhs.x-=rhs.x;lhs.y-=rhs.y;return lhs;}
-    friend Vec operator*(int lhs,Vec rhs){rhs.x*=lhs;rhs.y*=lhs;return rhs;}
-    Vec& operator=(const Vec&other){x=other.x;y=other.y;return *this;}
-    bool operator==(const Vec&other){return x==other.x && y==other.y;}
+    Vec_t(T x, T y):x{x},y{y}{}
+    Vec_t():x{},y{}{}
+    Vec_t(const Vec_t&vec):x(vec.x),y(vec.y){}
+    friend Vec_t operator+(Vec_t lhs,const Vec_t&rhs){lhs.x+=rhs.x;lhs.y+=rhs.y;return lhs;}
+    friend Vec_t operator-(Vec_t lhs,const Vec_t&rhs){lhs.x-=rhs.x;lhs.y-=rhs.y;return lhs;}
+    friend Vec_t operator*(int lhs,Vec_t rhs){rhs.x*=lhs;rhs.y*=lhs;return rhs;}
+    Vec_t& operator=(const Vec_t&other){x=other.x;y=other.y;return *this;}
+    bool operator==(const Vec_t&other)const {return x==other.x && y==other.y;}
 };
+
+typedef Vec_t<int> Vec;
+typedef Vec_t<long long> lVec;
 
 template <>
 struct std::hash<Vec>
@@ -67,6 +70,7 @@ void day10();
 void day11();
 void day12();
 void day13();
+void day14();
 
 void aoc2023();
 
