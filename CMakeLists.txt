@@ -27,6 +27,7 @@ add_executable(Advent_of_Code main.cpp
     Advent_of_Code.cpp
     day14.cpp
     day15.cpp
+    day16.cpp
 )
 
 include(GNUInstallDirs)
