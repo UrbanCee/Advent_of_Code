@@ -9,7 +9,7 @@
 #include <regex>
 #include <sstream>
 
-void outputMap(const std::vector<char> &map, const Coord &c)
+static void outputMap(const std::vector<char> &map, const Coord &c)
 {
     for (int y=0;y<c.height;y++)
     {
