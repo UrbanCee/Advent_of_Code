@@ -19,6 +19,13 @@ public:
     void outputState();
     std::string opCodeMnemonic(long long opcode, long long operand);
     std::string comboOpMn(long long operand);
+    static std::string toString(const std::vector<long long> &mem){
+        if (mem.empty())
+            return "null";
+        return std::accumulate(std::next(mem.begin()),mem.end(),std::to_string(mem.at(0)),[](std::string &str,int i){return str.append(",").append(std::to_string(i));});
+    }
+    std::string outputProg(){return toString(program);}
+    std::string outputOutput(){return toString(output);}
     void outputProgram();
     Computer & operator=(const Computer &o){
         this->A=o.A;
@@ -149,24 +156,27 @@ void day17()
 
     }
     Computer s(c);
+    s.A=0;
     c.run();
-    std::cout << "Day17 task1: " << std::accumulate(std::next(c.output.begin()),c.output.end(),std::to_string(c.output.at(0)),[](std::string &str,int i){return str.append(",").append(std::to_string(i));}) <<std::endl;
+    std::cout << "Day17 task1: " << c.outputOutput() << std::endl;
     c.outputProgram();
-    /*for (int i=0;i<64;i++){
+    for (int i=0;i<s.program.size();i++){
+        long long op = s.program[i];
+        for (int j=0;j<8;j++){
+            Computer t(s);
+            t.A+=j<<(3*i);
+            long long ta=t.A;
+            t.run();
+            std::cout << i << " " << j << " " << "op: " << op << " calcop: " << t.output.back() << std::endl;
+            if (t.output.back()==op){
+                s.A=ta;
+                break;
+            }
+        }
         Computer t(s);
-        t.A=i;
         t.run();
-        std::cout << "Day17 task2: " << "A=" << i/8 << "*8+" << i%8 << " -> " <<
-            std::accumulate(std::next(t.output.begin()),t.output.end(),std::to_string(t.output.at(0)),[](std::string &str,int i){return str.append(",").append(std::to_string(i));}) <<
-            std::endl;
-    }*/
-    Computer r(s);
-    r.A=1;
-    r.A<<=6;
-    r.A+=(8+6);
-    r.run();
-    std::cout << "Day17 task2: " <<
-        std::accumulate(std::next(r.output.begin()),r.output.end(),std::to_string(r.output.at(0)),[](std::string &str,int i){return str.append(",").append(std::to_string(i));}) <<
-        std::endl;
+        std::cout << t.outputOutput() << std::endl;
+    }
+    std::cout << "Day17 task2: " << s.A << std::endl;
 
 }
