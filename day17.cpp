@@ -7,13 +7,14 @@
 #include <iterator>
 #include <numeric>
 #include <regex>
+#include <set>
 #include <sstream>
 
 
 class Computer
 {
 public:
-    Computer():A{0},B{0},C{0},pc{0},program{},output{}{}
+    Computer():A{0ll},B{0ll},C{0ll},pc{0ll},program{},output{}{}
     Computer(const Computer &o):A{o.A},B{o.B},C{o.C},pc{o.pc},program{o.program},output{o.output}{}
     void run();
     void outputState();
@@ -48,20 +49,20 @@ void Computer::run()
     while (pc<program.size())
     {
         long long opcode=program.at(pc);
-        long long operand=program.at(pc+1);
+        long long operand=program.at(pc+1ll);
         //check for combo operand
         //outputState();
         switch(opcode){
-        case 0:
-        case 2:
-        case 5:
-        case 6:
-        case 7:
+        case 0ll:
+        case 2ll:
+        case 5ll:
+        case 6ll:
+        case 7ll:
             {
                 switch(operand){
-                case 4:operand=A; break;
-                case 5:operand=B; break;
-                case 6:operand=C; break;
+                case 4ll:operand=A; break;
+                case 5ll:operand=B; break;
+                case 6ll:operand=C; break;
                 }
             }
         default: break;
@@ -70,15 +71,15 @@ void Computer::run()
         {
         case 0: A>>=operand;break;
         case 1: B=B^operand;break;
-        case 2: B=operand%8;break;
-        case 3: pc=(A!=0?operand:pc+2);break;
+        case 2: B=operand%8ll;break;
+        case 3: pc=(A!=0ll?operand:pc+2ll);break;
         case 4: B=B^C;break;
-        case 5: output.push_back(operand%8);break;
+        case 5: output.push_back(operand%8ll);break;
         case 6: B=A>>operand;break;
         case 7: C=A>>operand;break;
         }
-        if (opcode!=3)
-            pc+=2;
+        if (opcode!=3ll)
+            pc+=2ll;
     }
 }
 
@@ -160,29 +161,32 @@ void day17()
     c.run();
     std::cout << "Day17 task1: " << c.outputOutput() << std::endl;
     c.outputProgram();
-    for (int i=0;i<2;i++){
-        long long op = s.program[i];
-        for (int j=1;j<8;j++){
+    std::cout << "Target program: " << c.outputProg() << std::endl;
+    std::function<bool(long long,int)> tryNumber;
+    tryNumber = [&](long long lastA, int depth){
+        if (depth<0){
+            s.A=lastA;
+            return true;
+        }
+        long long op = s.program[depth];
+        for (long long j=0ll;j<8ll;j++){
             Computer t(s);
-            t.A+=j<<(3*i);
-            long long ta=t.A;
+            long long ta = (lastA<<3)+j;
+            t.A=ta;
             t.run();
-            std::cout << i << " " << j << " " << "op: " << op << " calcop: " << t.output.back() << std::endl;
-            if (t.output.back()==op){
-                s.A=ta;
-                std::cout << i << " " << j << " " << "s.A: " << s.A<< std::endl;
-                break;
+            if (t.output.front()==op){
+                if (tryNumber(ta,depth-1))
+                {
+                    return true;
+                }
             }
         }
-        Computer t(s);
-        t.run();
-        std::cout << t.outputOutput() << std::endl;
-    }
-    Computer d(s);
-    d.outputState();
-    d.A=12+6*64;
-    d.run();
-    std::cout << "check" << d.outputOutput() << std::endl;
+        return false;
+    };
+    tryNumber(0,s.program.size()-1);
+    Computer t(s);
+    t.run();
+    std::cout << t.outputOutput() << std::endl;
     std::cout << "Day17 task2: " << s.A << std::endl;
 
 }
