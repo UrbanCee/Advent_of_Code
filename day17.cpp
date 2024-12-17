@@ -160,9 +160,9 @@ void day17()
     c.run();
     std::cout << "Day17 task1: " << c.outputOutput() << std::endl;
     c.outputProgram();
-    for (int i=0;i<s.program.size();i++){
+    for (int i=0;i<2;i++){
         long long op = s.program[i];
-        for (int j=0;j<8;j++){
+        for (int j=1;j<8;j++){
             Computer t(s);
             t.A+=j<<(3*i);
             long long ta=t.A;
@@ -170,6 +170,7 @@ void day17()
             std::cout << i << " " << j << " " << "op: " << op << " calcop: " << t.output.back() << std::endl;
             if (t.output.back()==op){
                 s.A=ta;
+                std::cout << i << " " << j << " " << "s.A: " << s.A<< std::endl;
                 break;
             }
         }
@@ -177,6 +178,11 @@ void day17()
         t.run();
         std::cout << t.outputOutput() << std::endl;
     }
+    Computer d(s);
+    d.outputState();
+    d.A=12+6*64;
+    d.run();
+    std::cout << "check" << d.outputOutput() << std::endl;
     std::cout << "Day17 task2: " << s.A << std::endl;
 
 }
