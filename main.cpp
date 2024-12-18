@@ -8,7 +8,7 @@ int main()
     //day3();
     //day4();
     //day5();
-    //day6();
+    day6();
     //cout << "Day7 Task 1: " << day7(1)  << endl;
     //cout << "Day7 Task 2: " << day7(2)  << endl;
     //day8();
@@ -21,7 +21,7 @@ int main()
     //day15();
     //day16();
     //day17();
-    day18();
+    //day18();
     //day19();
     //day20();
     //day21();

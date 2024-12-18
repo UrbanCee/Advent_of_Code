@@ -65,7 +65,7 @@ int traverseMemory(const Coord c,const std::unordered_set<int> &corr)
         }
         //Vec currPos = c.toVec(current.first);
 //        std::cout << std::endl << "at: " << currPos.x << "," << currPos.y << "   trav size:" << traverse.size() << std::endl;
-//        visualizeMap(c,corr,costMap,currPos,traverse);
+//        visualizeMap(c,corr,costMap,{0,0},traverse);
     }
     if (costMap.find(c.height*c.width-1)==costMap.end())
         return -1;
@@ -80,7 +80,7 @@ void day18()
     //int bytes = 12;
     std::ifstream inputFile(std::filesystem::path("../../inputs/day18.txt"));
     Coord c(71,71);
-    int bytes = 1023;
+    int bytes = 1024;
 
     std::vector<int> corrIndices;
 
@@ -94,12 +94,23 @@ void day18()
     }
 
 
-    std::unordered_set<int> corr;
-    std::copy(corrIndices.begin(),corrIndices.begin()+bytes,std::inserter(corr,corr.begin()));
+    std::unordered_set<int> corr_1;
+    std::copy(corrIndices.begin(),corrIndices.begin()+bytes,std::inserter(corr_1,corr_1.begin()));
 
 
 
 
-    std::cout << "Day18 task1: " << traverseMemory(c,corr) << std::endl;
-    std::cout << "Day18 task2: " << c.toVec(corrIndices.at(1024)).x << "," << c.toVec(corrIndices.at(1024)).y << std::endl;
+    std::cout << "Day18 task1: " << traverseMemory(c,corr_1) << std::endl;
+    int lastCorrCord = 0;
+    std::unordered_set<int> corr_2;
+    for (auto nextCorr : corrIndices)
+    {
+        lastCorrCord=nextCorr;
+        corr_2.insert(nextCorr);
+        int steps=traverseMemory(c,corr_2);
+        if (steps<0) break;
+        //std::cout << std::distance(corrIndices.begin(),std::find(corrIndices.begin(),corrIndices.end(),lastCorrCord)) << ": " <<
+        //    c.toVec(lastCorrCord).x << "," << c.toVec(lastCorrCord).y << "  with " << steps << "steps!" << std::endl;
+    }
+    std::cout << "Day18 task2: " << c.toVec(lastCorrCord).x << "," << c.toVec(lastCorrCord).y << std::endl;
 }
