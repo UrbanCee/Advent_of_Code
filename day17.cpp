@@ -23,7 +23,7 @@ public:
     static std::string toString(const std::vector<long long> &mem){
         if (mem.empty())
             return "null";
-        return std::accumulate(std::next(mem.begin()),mem.end(),std::to_string(mem.at(0)),[](std::string &str,int i){return str.append(",").append(std::to_string(i));});
+        return std::accumulate(std::next(mem.begin()),mem.end(),std::to_string(mem.at(0)),[](const std::string &str,int i){return std::string(str).append(",").append(std::to_string(i));});
     }
     std::string outputProg(){return toString(program);}
     std::string outputOutput(){return toString(output);}

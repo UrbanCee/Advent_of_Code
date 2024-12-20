@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.16)
 
 project(Advent_of_Code LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_executable(Advent_of_Code main.cpp
@@ -32,6 +32,7 @@ add_executable(Advent_of_Code main.cpp
     day18.cpp
     day19.cpp
     day20.cpp
+    day21.cpp
 )
 
 include(GNUInstallDirs)
