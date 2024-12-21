@@ -9,14 +9,15 @@
 
 static std::unordered_map<char,Vec> locNum={{'7',{0,0}},{'8',{1,0}},{'9',{2,0}},{'4',{0,1}},{'5',{1,1}},{'6',{2,1}},{'1',{0,2}},{'2',{1,2}},{'3',{2,2}},{'F',{0,3}},{'0',{1,3}},{'A',{2,3}}};
 static std::unordered_map<char,Vec> locDir={{'F',{0,0}},{'^',{1,0}},{'A',{2,0}},{'<',{0,1}},{'v',{1,1}},{'>',{2,1}}};
+static std::unordered_map<char,Vec> dirs={{'v',{0,1}},{'^',{0,-1}},{'<',{-1,0}},{'>',{1,0}}};
 
 class Robot{
 public:
-    Robot(const std::string &name):name(name){}
+    Robot(const std::string &name):name(name),lastPos('A'){}
     virtual std::unordered_set<std::string> getMovement(const std::string &code) = 0;
 protected:
     std::unordered_set<std::string> calcMovements(const std::string&code, const std::unordered_map<char,Vec> &loc, bool downFirst){
-        char last='A';
+        char last=lastPos;
         std::vector<std::unordered_set<std::string>> groupedMovements;
         for (auto &&ch:code){
             Vec delta=loc.at(ch)-loc.at(last);
@@ -36,8 +37,8 @@ protected:
             std::sort(baseString.begin(),baseString.end());
             std::unordered_set<std::string> movementPermutations;
             do{
-
-                movementPermutations.insert(baseString+"A");
+                if (checkValid(baseString,loc,ch,last))
+                    movementPermutations.insert(baseString+"A");
             }while(std::next_permutation(baseString.begin(),baseString.end()));
             last=ch;
             groupedMovements.push_back(movementPermutations);
@@ -58,7 +59,20 @@ protected:
         }
         return finalMovements;
     }
+    bool checkValid(const std::string &move,const std::unordered_map<char,Vec> &loc,char ch, char last)
+    {
+        Vec pos=loc.at(last);
+        Vec forbidden = loc.at('F');
+        for (auto dirC:move)
+        {
+            pos = pos + dirs.at(dirC);
+            if (pos==forbidden)
+                return false;
+        }
+        return true;
+    }
     std::string name;
+    char lastPos;
 };
 
 class PadRobot : public Robot{
@@ -76,13 +90,11 @@ public:
             }
         }
         std::unordered_set<std::string> bestMovements;
-        std::cout << name << ":  before:" << movements.size() << std::endl;
         for (auto &&movement:movements)
         {
             if (movement.size()==minLength)
                 bestMovements.insert(movement);
         }
-        std::cout << name << ":  after:" << movements.size() << std::endl;
         return bestMovements;
     }
     Robot &child;
@@ -92,22 +104,28 @@ class NumRobot : public Robot{
 public:
     NumRobot(const std::string &name):Robot(name){}
     virtual std::unordered_set<std::string> getMovement(const std::string &code)override{
-        return calcMovements(code,locNum,false);
+        auto returnValue = calcMovements(code,locNum,false);
+        lastPos=code.back();
+        return returnValue;
     }
 };
 
 
 void day21()
 {
-    std::ifstream inputFile(std::filesystem::path("../../inputs/day21_training.txt"));
-    //std::ifstream inputFile(std::filesystem::path("../../inputs/day21.txt"));
+    //std::ifstream inputFile(std::filesystem::path("../../inputs/day21_training.txt"));
+    std::ifstream inputFile(std::filesystem::path("../../inputs/day21.txt"));
     NumRobot numBot("Numpad Robot");
     PadRobot radBot("Radiated Robot",numBot);
     PadRobot freezeBot("Freezing Robot",radBot);
 
     int score=0;
     for (std::string line; std::getline(inputFile,line);){
-        score+=(*freezeBot.getMovement(line).begin()).size()*std::stoi(line.substr(0,line.size()-1));
+        int steps=0;
+        for (auto ch: line)
+            steps+=(*freezeBot.getMovement(std::string(1,ch)).begin()).size();
+        std::cout << line << ": " << steps << " steps" << std::endl;
+        score+=steps*std::stoi(line.substr(0,line.size()-1));
     }
     std::cout << "Day21 task1: " <<score<< std::endl;
     std::cout << "Day21 task2: " << std::endl;
