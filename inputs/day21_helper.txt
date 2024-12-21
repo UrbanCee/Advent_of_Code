@@ -1,0 +1,16 @@
+   <v<A >>^A vA ^A <vA <A A  >>^A A  vA <^A >A A  vA ^A <vA >^A A <A >A <v<A >A >^A A A vA <^A >A 
+F: <!   A!   >! A! v!  <! <! A!   A! >! ^!  A! A! >! A!
+R: ^	^!   A  A! >   v  <  <!	  <! v	^   ^! ^! A  A!
+N: 	3	3!           2    1         4  7     7!
+
+
+
+3		 7
+<v<A>>^AvA^A     <vA<AA>>^AAvA<^A>AAvA^A          <vA>^AA<A>A<v<A>A>^AAAvA<^A>A
+v<<A>>^AvA^A     v<<A>>^AAv<A<A>>^AAvAA<^A>A      v<A>^AA<A>Av<A<A>>^AAAvA<^A>A
+
+
+   v<<A >>^A vA ^A v<<A >>^A A  v<A <A >>^A A  vA A  <^A >A v<A >^A A <A >A v<A <A >>^A A A vA <^A >A                                                                             
+F: <!   A!   >! A! <!   A!   A! v!  <! A!   A! >! >! ^!  A!
+R: ^	^!   A  A! ^    ^!   ^! v   <  <!   <! v  >  A   A!
+N:	3	3!	6    9         8    7            7!
