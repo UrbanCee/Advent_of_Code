@@ -26,8 +26,8 @@ int main()
     //day20();
     //day21();
     //day22();
-    day23();
-    //day24();
+    //day23();
+    day24();
     //day25();
     return 0;
 }
