@@ -5,7 +5,7 @@
 #include <filesystem>
 #include <cmath>
 #include <unordered_set>
-
+#include <unordered_map>
 
 static std::unordered_map<char,Vec> locNum={{'7',{0,0}},{'8',{1,0}},{'9',{2,0}},{'4',{0,1}},{'5',{1,1}},{'6',{2,1}},{'1',{0,2}},{'2',{1,2}},{'3',{2,2}},{'F',{0,3}},{'0',{1,3}},{'A',{2,3}}};
 static std::unordered_map<char,Vec> locDir={{'F',{0,0}},{'^',{1,0}},{'A',{2,0}},{'<',{0,1}},{'v',{1,1}},{'>',{2,1}}};

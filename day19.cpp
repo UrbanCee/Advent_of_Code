@@ -9,6 +9,7 @@
 #include <regex>
 #include <sstream>
 #include <unordered_set>
+#include <unordered_map>
 
 //pair: first: pos in pattern, second: currentbasePattern
 

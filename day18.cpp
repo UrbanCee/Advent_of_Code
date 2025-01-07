@@ -10,6 +10,7 @@
 #include <regex>
 #include <sstream>
 #include <unordered_set>
+#include <unordered_map>
 
 
 static std::array<Vec,4> dirs= {{{1,0},{0,1},{-1,0},{0,-1}}};
