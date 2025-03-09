@@ -11,8 +11,7 @@
 #include <unordered_set>
 #include <unordered_map>
 
-//pair: first: pos in pattern, second: currentbasePattern
-
+//original solution
 bool matchPattern(int &posInString, const std::string &pattern,std::string basePat)
 {
     int newPosInString = posInString;
@@ -26,11 +25,13 @@ bool matchPattern(int &posInString, const std::string &pattern,std::string baseP
     return true;
 }
 
+static long long calls=0;
+
 
 long long recConstr(const std::string &pattern,const std::vector<std::string> &basePatterns,std::unordered_map<int,long long>&subsolutions,int pos)
 {
     long long solutions=0;
-    for (auto basePat:basePatterns)
+    for (auto &&basePat:basePatterns)
     {
         int newPos=pos;
         if (subsolutions.count(pos+basePat.size()) && subsolutions.at(pos+basePat.size())==0) continue;
@@ -49,10 +50,31 @@ long long recConstr(const std::string &pattern,const std::vector<std::string> &b
 }
 
 
+//new solution
+long long cutString(const std::string &pattern, const std::vector<std::string> &basePatterns,std::unordered_map<std::string,long long> &knownPatterns)
+{
+    calls++;
+    long long solutions=0;
+    for (auto &&basePat:basePatterns)
+    {
+        if (pattern.starts_with(basePat)){
+            auto reducedPat=pattern.substr(basePat.size());
+            if (reducedPat.empty()) solutions++;
+            if (!knownPatterns.contains(reducedPat)){
+                knownPatterns[reducedPat]=cutString(reducedPat,basePatterns,knownPatterns);
+            }
+            solutions+=knownPatterns.at(reducedPat);
+        }
+    }
+    return solutions;
+}
+
+
 void day19()
 {
     //std::ifstream inputFile(std::filesystem::path("../../inputs/day19_training.txt"));
-    std::ifstream inputFile(std::filesystem::path("../../inputs/day19.txt"));
+    //std::ifstream inputFile(std::filesystem::path("../../inputs/day19.txt"));
+    std::ifstream inputFile(std::filesystem::path("../../inputs/day19_reini.txt"));
 
     std::string basePatternString;
     std::getline(inputFile,basePatternString);
@@ -78,9 +100,31 @@ void day19()
         }
     }
 
+    int iCanNewSol=0;
+    long long totalNew=0;
+    std::unordered_map<std::string,long long> knownPatterns;
+    int nonMatch=0;
+    for(auto &&pattern : patterns)
+    {
+        long long currSol=cutString(pattern,basePatterns,knownPatterns);
+        if (currSol>0){
+            iCanNewSol++;
+            totalNew+=currSol;
+        }else{
+            //std::cout << pattern << std::endl;
+            nonMatch++;
+        }
+
+    }
+
+    std::cout<< "Non matching patterns: " << nonMatch << std::endl;
+
 
 
 
     std::cout << "Day19 task1: " << iCanBeConstructed << std::endl;
+    std::cout << "Day19 task1: (new) " << iCanNewSol << std::endl;
     std::cout << "Day19 task2: " << totalSolutions << std::endl;
+    std::cout << "Day19 task2: (new)" << totalNew << std::endl;
+    std::cout << "Calls to cutString:" << calls << std::endl;
 }
