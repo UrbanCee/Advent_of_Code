@@ -48,8 +48,9 @@ void day20()
         c.height++;
     }
 
+    //normal race
     std::vector<Vec> racePos={start};
-    while(raceTrack.at(c.toIndex(end))==0){
+    while(racePos.back()!=end){
         for(auto &dir:dirs)
         {
             int nextIndex=c.toIndex(racePos.back()+dir);
@@ -61,6 +62,7 @@ void day20()
             }
         }
     }
+
     std::vector<Vec> possibleCheatLocations;
     createPossibleCheatLocations(possibleCheatLocations,20);
 
@@ -82,6 +84,6 @@ void day20()
 
 
 
-    std::cout << "Day20 task1: "<< cheatsIndices_1.size() << std::endl;
+    std::cout << "Day20 task1: " << cheatsIndices_1.size() << std::endl;
     std::cout << "Day20 task2: " << cheatsIndices_2.size()<<  std::endl;
 }
