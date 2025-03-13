@@ -34,7 +34,7 @@ class Gate:
         return False
 
 
-with open("inputs/day24.txt","rt") as fp:
+with open("inputs/day24_reini.txt","rt") as fp:
     for line in fp.readlines():
         for (wire,value) in re.findall(inpExr,line):
             wires[wire]=int(value)
