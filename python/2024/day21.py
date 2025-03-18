@@ -38,12 +38,12 @@ def pair2CodeArray(pair,buttonMap,pos2ButtonMap):
 alphaPairArrays = {pair: list(pair2CodeArray(pair,alphaNumMap,pos2AlphaNum)) for pair in allAlphaNumPairs}
 dirMapArrays = {pair: list(pair2CodeArray(pair,directionalMap,pos2Dir)) for pair in allDirectionalPairs}
 
-savedCosts = dict()
+savedLengths = dict()
 
 def calcLength(pair,layersAbove,keymap):
-    hashCode=pair+str(layersAbove)
-    if  hashCode in savedCosts:
-        return savedCosts[hashCode]
+    hashCode=pair+":"+str(layersAbove)
+    if  hashCode in savedLengths:
+        return savedLengths[hashCode]
     possibleWays = keymap[pair]
     if layersAbove==0:
         return min([len(x) for x in possibleWays])
@@ -55,7 +55,7 @@ def calcLength(pair,layersAbove,keymap):
             currLen+=calcLength(possibleWay[i:i+2],layersAbove-1,dirMapArrays)
         if totalLen<0: totalLen=currLen
         else: totalLen = min(totalLen,currLen)
-    savedCosts[hashCode]=totalLen
+    savedLengths[hashCode]=totalLen
     return totalLen
 
 complTask1=0
@@ -68,3 +68,6 @@ for code in ["A"+cd for cd in codes]:
 print("Task1:",complTask1)
 print("Task2:",complTask2)
     
+for key,savedLength in savedLengths.items():
+    print(key,savedLength)
+print(len(savedLengths))
