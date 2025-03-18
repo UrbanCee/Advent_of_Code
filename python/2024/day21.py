@@ -1,10 +1,8 @@
 from size import *
 from itertools import permutations
-with open("inputs/day21_training.txt","rt") as fp:
+with open("inputs/day21.txt","rt") as fp:
     codes = [line.strip() for line in fp.readlines()]
 
-alphaNumKeyboard = [["7","8","9"],["4","5","6"],["1","2","3"],["F","0","A"]]
-directionalKeyboard = [["F","^","A"],["<","v",">"]]
 alphaNumFlat = ["7","8","9","4","5","6","1","2","3","0","A"]
 directionalFlat = ["^","A","<","v",">"]
 alphaNumMap = {"7":(0,0),"8":(1,0),"9":(2,0),"4":(0,1),"5":(1,1),"6":(2,1),"1":(0,2),"2":(1,2),"3":(2,2),"F":(0,3),"0":(1,3),"A":(2,3)}
@@ -27,29 +25,46 @@ def pair2CodeArray(pair,buttonMap,pos2ButtonMap):
     start = buttonMap[pair[0]]
     end = buttonMap[pair[1]]
     delta = vSub(end,start)
-    totalsteps=abs(delta[0])+abs(delta[1])
     updownChar="^"
     if (delta[1]>0): updownChar="v"
     leftRightChar="<"
     if (delta[0]>0): leftRightChar=">"
     baseString = leftRightChar*abs(delta[0])+updownChar*abs(delta[1])
-    validCodes = []
     for codeSet in set(permutations(baseString)):
         code="".join(codeSet)+"A"
         if allowedCombo(start,code,pos2ButtonMap):
-            validCodes.append(code)
-    return validCodes
+            yield code
 
-alphaPairArrays = {pair: pair2CodeArray(pair,alphaNumMap,pos2AlphaNum) for pair in allAlphaNumPairs}
-dirMapArrays = {pair:pair2CodeArray(pair,directionalMap,pos2Dir) for pair in allDirectionalPairs}
+alphaPairArrays = {pair: list(pair2CodeArray(pair,alphaNumMap,pos2AlphaNum)) for pair in allAlphaNumPairs}
+dirMapArrays = {pair: list(pair2CodeArray(pair,directionalMap,pos2Dir)) for pair in allDirectionalPairs}
 
-for (pair,dirMap) in dirMapArrays.items():
-    if len(dirMap)>1:
-        for dir in dirMap:
-            print(pair,dir,":")
+savedCosts = dict()
 
+def calcLength(pair,layersAbove,keymap):
+    hashCode=pair+str(layersAbove)
+    if  hashCode in savedCosts:
+        return savedCosts[hashCode]
+    possibleWays = keymap[pair]
+    if layersAbove==0:
+        return min([len(x) for x in possibleWays])
+    
+    totalLen=-1
+    for possibleWay in ["A"+way for way in possibleWays]:
+        currLen=0
+        for i in range(len(possibleWay)-1):
+            currLen+=calcLength(possibleWay[i:i+2],layersAbove-1,dirMapArrays)
+        if totalLen<0: totalLen=currLen
+        else: totalLen = min(totalLen,currLen)
+    savedCosts[hashCode]=totalLen
+    return totalLen
 
-
-
-
-
+complTask1=0
+complTask2=0
+for code in ["A"+cd for cd in codes]:
+    for i in range(len(code)-1):
+        complTask1+=int(code[1:-1])*calcLength(code[i:i+2],2,alphaPairArrays)
+        complTask2+=int(code[1:-1])*calcLength(code[i:i+2],25,alphaPairArrays)
+    
+print("Task1:",complTask1)
+print("Task2:",complTask2)
+    

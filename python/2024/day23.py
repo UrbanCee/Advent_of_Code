@@ -1,5 +1,5 @@
 edges = []
-with open("inputs/day23.txt","rt") as fp:
+with open("inputs/day23_training.txt","rt") as fp:
     for line in fp.readlines():
         if "-" in line:
             edges.append(list(line.strip().split("-")))
