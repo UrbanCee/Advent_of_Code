@@ -1,4 +1,5 @@
 from size import *
+import time
 from itertools import permutations
 with open("inputs/day21.txt","rt") as fp:
     codes = [line.strip() for line in fp.readlines()]
@@ -64,10 +65,6 @@ for code in ["A"+cd for cd in codes]:
     for i in range(len(code)-1):
         complTask1+=int(code[1:-1])*calcLength(code[i:i+2],2,alphaPairArrays)
         complTask2+=int(code[1:-1])*calcLength(code[i:i+2],25,alphaPairArrays)
-    
+
 print("Task1:",complTask1)
 print("Task2:",complTask2)
-    
-for key,savedLength in savedLengths.items():
-    print(key,savedLength)
-print(len(savedLengths))
