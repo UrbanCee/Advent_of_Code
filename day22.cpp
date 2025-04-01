@@ -11,6 +11,10 @@
 #include <sstream>
 #include <unordered_set>
 
+#include <chrono>
+
+
+
 
 long long nextNumber(long long number)
 {
@@ -22,6 +26,7 @@ long long nextNumber(long long number)
     number %= 16777216;
     return number;
 }
+
 
 
 struct Last4{
@@ -63,6 +68,8 @@ void day22()
     std::unordered_multimap<int,SellerData> sellPrices;
     std::unordered_set<int> uniqueKeys;
     int currentSellerID=0;
+    std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
+
     for (std::string line; std::getline(inputFile,line);){
         long long secretNumber = std::stoi(line);
         int lastPrice=(int) (secretNumber%10ll);
@@ -92,18 +99,17 @@ void day22()
         score+=secretNumber;
     }
     int mostBananas=0;
-    int bestIndex=0;
     for (auto &&key:uniqueKeys)
     {
         auto sameDiff= sellPrices.equal_range(key);
         int currentBananas=std::accumulate(sameDiff.first,sameDiff.second,0,[](int bananas,auto pair){return bananas+pair.second.price;});
         if (currentBananas>mostBananas){
             mostBananas=currentBananas;
-            bestIndex=key;
         }
     }
 
-
+    std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
     std::cout << "Day22 task1: " << score <<std::endl;
     std::cout << "Day22 task2: " << mostBananas << std::endl;
+    std::cout << "Runtime = " << std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count() << "[ms]" << std::endl;
 }

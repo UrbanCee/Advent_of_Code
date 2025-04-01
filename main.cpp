@@ -3,7 +3,7 @@
 int main()
 {
     //aoc2023();
-    //day1();
+    day1();
     //day2();
     //day3();
     //day4();
@@ -23,7 +23,7 @@ int main()
     //day17();
     //day18();
     //day19();
-    day20();
+    //day20();
     //day21();
     //day22();
     //day23();
