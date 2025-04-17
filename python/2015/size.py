@@ -24,3 +24,6 @@ class mySize:
         return self.outOfBoundsv(vAdd(self.toVec(index),v))
     def addVecToInd(self,index:int,v:tuple[int,int]) -> int:
         return self.toIndv(vAdd(self.toVec(index),v))
+    def print(self,string):
+        for i in range(self.h):
+            print(string[i*self.w:(i+1)*self.w])

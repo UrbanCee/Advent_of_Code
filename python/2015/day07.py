@@ -53,9 +53,6 @@ def run():
                 wires[out]= in1n >> in2n
 
 
-#    print("-----------wires---------------")
-#    for wire,value in wires.items():
-#            print(wire,value)
 run()
 a = wires["a"]
 print("Task 1 Wire a=",a)
