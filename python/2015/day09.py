@@ -11,12 +11,9 @@ with open("inputs/day09.txt") as fp:
         for (ori,dest,dist) in re.findall(expr,line):
             dists[ori+dest]=int(dist)
             dists[dest+ori]=int(dist)
-            if not (dest in locations):
-                locations.add(dest)
-            if not (ori in locations):
-                locations.add(ori)
-            
+            locations.add(dest)
+            locations.add(ori)
 
-
-print(np.min( [np.sum([dists[move] for move in [entry[a]+entry[a+1] for a in range(len(entry)-1)]]) for entry in it.permutations(locations)]))
-print(np.max( [np.sum([dists[move] for move in [entry[a]+entry[a+1] for a in range(len(entry)-1)]]) for entry in it.permutations(locations)]))
+distances = [np.sum([dists[move] for move in [entry[a]+entry[a+1] for a in range(len(entry)-1)]]) for entry in it.permutations(locations)]
+print("Task1: ",np.min( distances ))
+print("Task2: ",np.max( distances ))
