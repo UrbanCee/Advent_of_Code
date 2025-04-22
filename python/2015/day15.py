@@ -2,9 +2,7 @@ import re
 import numpy as np
 
 rex = "([A-Za-z]+): capacity (-?\\d+), durability (-?\\d+), flavor (-?\\d+), texture (-?\\d+), calories (-?\\d+)"
-
-ingred = []
-ingNames = []
+ingred, ingNames = [], []
 
 with open("inputs/day15.txt") as fp:
     for line in fp.readlines():
@@ -15,8 +13,7 @@ with open("inputs/day15.txt") as fp:
 def calcScore(amts,ing):
     return max(0,np.sum([amts[j]*ing[j] for j in range(4) ]))
 
-maxscore=0
-maxCalScore=0
+maxscore,maxCalScore=0,0
 
 for i1 in range(100):
     for i2 in range(100-i1):
@@ -31,5 +28,5 @@ for i1 in range(100):
                 if score > maxCalScore:
                     maxCalScore=score
 
-print(maxscore)            
-print(maxCalScore)            
+print("Task1: ", maxscore)            
+print("Task2: ", maxCalScore)            
