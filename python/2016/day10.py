@@ -15,14 +15,12 @@ def addValueTo(dest,b,v):
         if b not in outputs.keys(): outputs[b] = [v]
         else: outputs[b] = outputs[b]+[v]
 
-
 for b,ld1,l1,hd1,h1 in re.findall(botExpr,cmds):
     bots[b]=(ld1,l1,hd1,h1,[])
 for v,b in re.findall(inputExpr,cmds):
     addValueTo("bot",b,int(v))
 
 outputs = {}
-
 botsProcessed = set()
 while(len(botsProcessed)<len(bots)):
     for b,bv in [(b,bv) for b,bv in bots.items() if len(bv[4])==2 and b not in botsProcessed]:
