@@ -12,25 +12,25 @@ with open("inputs/day21_train.txt") as fp:
     cmds = list(map(str.strip,fp.readlines()))
     
 code = "abcde"
-
-def swp(code,X,Y):
-    if X<Y: return code[:X]+code[Y]+code[X+1:Y]+code[X]+code[Y+1:]
-    else: return code[:Y]+code[X]+code[Y+1:X]+code[Y]+code[X+1:]
-    
-
-count = 0
 for cmd in cmds:
-    for X,Y in [(int(X),int(Y)) for X,Y in swpPosPat.findall(cmd)]:
-        code=swp(code,X,Y)
-    for cx,cy in swpLetPat.findall(cmd):
-        code=swp(code,code.find(cx),code.find(cy))
+    for X,Y in [(min(int(X),int(Y)),max(int(X),int(Y))) for X,Y in swpPosPat.findall(cmd)]:
+        code=code[:X]+code[Y]+code[X+1:Y]+code[X]+code[Y+1:]
+    for X,Y in [(min(code.find(cx),code.find(cy)),max(code.find(cx),code.find(cy))) for cx,cy in swpLetPat.findall(cmd)]:
+        code=code[:X]+code[Y]+code[X+1:Y]+code[X]+code[Y+1:]
     for dir,steps in rotatePat.findall(cmd):
         if dir=="left": code = "".join([code[(i+int(steps))%len(code)] for i in range(len(code))])
         else: code = "".join([code[(i+len(code)-int(steps))%len(code)] for i in range(len(code))])
     for letter in rotatePosPat.findall(cmd):
-        count+=1
-    for X,Y in reversePat.findall(cmd):
-        count+=1
-    for X,Y in movePat.findall(cmd):
-        count+=1
+        pass
+    for X,Y in [(min(int(X),int(Y)),max(int(X),int(Y))) for X,Y in reversePat.findall(cmd)]:
+        code=code[:X]+(code[X:Y+1:-1])+code[Y+1:]
+    for X,Y in [(int(X),int(Y)) for X,Y in movePat.findall(cmd)]:
+        print(code)
+        print(X,Y)
+        intCode=code[:X]+code[X+1:]
+        code=intCode[:Y]+code[X]+intCode[Y:]
+    print(code)
+print(code)
+print(reversed("12345"))
+        
 
