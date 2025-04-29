@@ -1,4 +1,5 @@
 import re
+from queue import PriorityQueue as PQ
 
 subsRe = "^([A-Za-z]+) => ([A-Za-z]+)$"
 keyRe = "^([A-Za-z0-9]+)$"
@@ -25,4 +26,5 @@ for el,sub in subs:
         newMolecules.add(replaceAtPos(molecule,pos,len(el),sub))
 print("Task1: ",len(newMolecules))
 
-
+elems=re.compile(r'[A-Z][a-z]?')
+print("Task2: ",len(elems.findall(molecule))-molecule.count("Ar")*2-molecule.count("Y")*2-1)
