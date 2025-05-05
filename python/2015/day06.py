@@ -16,11 +16,10 @@ with open("inputs/day06.txt") as fp:
                         brightnesses[x][y]+=1
                     elif cmd=="turn off":
                         lights[x][y]=False
-                        brightnesses[x][y]-=1
-                        brightnesses[x][y]=max(brightnesses[x][y],0)
+                        brightnesses[x][y]=max(brightnesses[x][y]-1,0)
                     else:
                         lights[x][y]= not lights[x][y]
                         brightnesses[x][y]+=2
 
 print("Task1: On:",np.sum(lights))
-print("Task1: Brightness:",np.sum(brightnesses))
+print("Task2: Brightness:",np.sum(brightnesses))

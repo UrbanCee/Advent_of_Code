@@ -1,44 +1,21 @@
 def checkvowelcount(string):
-    vowelcount=0
-    for ch in "aeiuo":
-        vowelcount+=string.count(ch)
-    return vowelcount>2
+    return sum([string.count(ch) for ch in "aeiuo"])>2
 
 def checkdouble(string):
-    for i in range(len(string)-1):
-        if string[i]==string[i+1]:
-            return True
-    return False
+    return sum([string[i]==string[i+1] for i in range(len(string)-1)])>0
 
 def checkbadcombos(string):
-    for cmb in ["ab","cd","pq","xy"]:
-        if cmb in string:
-            return False
-    return True
+    return sum([cmb in string for cmb in ["ab","cd","pq","xy"]])==0
 
 def sparseletter(string):
-    for i in range(len(string)-2):
-        if string[i]==string[i+2]:
-            return True
-    return False
+    return sum([string[i]==string[i+2] for i in range(len(string)-2)])>0
 
 def checkreoccpair(string):
-    if len(string)<4:
-        return False
-    if string[0:2] in string[2:]:
-        return True
-    return checkreoccpair(string[1:])
+    return sum([string[i:][0:2] in string[i:][2:] for i in range(len(string)-3)])>0
 
-
-niceCount1 = 0
-niceCount2 = 0
 with open("inputs/day05.txt") as fp:
-    for line in fp.readlines():
-        if checkvowelcount(line) and checkdouble(line) and checkbadcombos(line):
-            niceCount1+=1
-        if checkreoccpair(line) and sparseletter(line):
-            niceCount2+=1
+    lines= list(map(str.strip,fp.readlines()))
 
-print("Task1: Nice count: ",niceCount1)
-print("Task2: Nice count: ",niceCount2)
+print("Task1: ",sum([checkvowelcount(line) and checkdouble(line) and checkbadcombos(line) for line in lines]))
+print("Task2: ",sum([checkreoccpair(line) and sparseletter(line) for line in lines]))
 

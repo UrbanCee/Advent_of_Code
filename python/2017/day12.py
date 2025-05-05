@@ -11,5 +11,7 @@ while len(nodeQueue)>0:
     nextNode=nodeQueue.popleft()
     visitedNodes.add(nextNode)
     nodeQueue.extend([n for n in nodeCon[nextNode] if n not in visitedNodes])
-
 print("Task1: ",len(visitedNodes))
+
+    
+    

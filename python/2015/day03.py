@@ -9,8 +9,7 @@ def moveAndVisit(curr,ch,vis):
     vis.add(curr)
     return curr
     
-visited={(0,0)}
-currPos=(0,0)
+visited,currPos={(0,0)},(0,0)
 for ch in line:
     currPos=moveAndVisit(currPos,ch,visited)
 print("year1: visited houses:",len(visited))
