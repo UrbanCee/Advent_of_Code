@@ -11,7 +11,6 @@ spells = [
 
 init_bossHP,bossdmg =  71,10
 init_playerHP,init_mana = 50,500
-
 bestresult=100000000
 
 def fight(bossHP,playerHP,mana,bossturn,effects,manaspent,castSpells,loseHP):
@@ -29,18 +28,18 @@ def fight(bossHP,playerHP,mana,bossturn,effects,manaspent,castSpells,loseHP):
         print(manaspent,castSpells)
         if manaspent<bestresult:
             bestresult=manaspent
-        return True
+        return
     if bossturn:
         playerHP-=max(1,bossdmg-playerAr)
         if playerHP>0:
-            return fight(bossHP,playerHP,mana,False,stillActiveEffects,manaspent,castSpells,loseHP)
+            fight(bossHP,playerHP,mana,False,stillActiveEffects,manaspent,castSpells,loseHP)
     else:
         if loseHP:
             playerHP-=1
             if playerHP<=0:
-                return False
+                return
         if mana<53:
-            return False
+            return
         for spell in spells:
             if spell[0] in stillActiveEffects.keys() or spell[1]>mana or manaspent+spell[1]>=bestresult:
                 continue
@@ -49,7 +48,7 @@ def fight(bossHP,playerHP,mana,bossturn,effects,manaspent,castSpells,loseHP):
             fight(bossHP,playerHP,mana-spell[1],True,newEffects,manaspent+spell[1],castSpells+f"->{spell[0]}",loseHP)
 
 fight(init_bossHP,init_playerHP,init_mana,False,{},0,"",False)
-print("Task1: ",bestresult)    
+print("Task1:",bestresult)    
 bestresult=100000000
 fight(init_bossHP,init_playerHP,init_mana,False,{},0,"",True)
 print("Task2:",bestresult)
