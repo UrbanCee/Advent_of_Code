@@ -1,24 +1,11 @@
 import re
-expr = "(\\d+) +(\\d+) +(\\d+)"
-nonTriangles=0
-triangles=0
-nmbrs = []
+expr = re.compile(r"(\d+) +(\d+) +(\d+)")
+def isTriangle(t): return t[0]+t[1]>t[2]    
+
 with open("inputs/day03.txt") as fp:
-    for line in fp.readlines():
-        for numbers in [[int(v1),int(v2),int(v3)] for v1,v2,v3 in re.findall(expr,line)]:
-            nmbrs.append(numbers)
-        for lengths in [sorted([int(v1),int(v2),int(v3)]) for v1,v2,v3 in re.findall(expr,line)]:
-            if (lengths[0]+lengths[1]>lengths[2]):
-                nonTriangles+=1
+    numbers = [(int(v1),int(v2),int(v3)) for line in fp.readlines() for v1,v2,v3 in expr.findall(line)]
 
-for column in range(3):
-    for row in range(0,len(nmbrs),3):
-        sortedNums=sorted([nmbrs[row][column],nmbrs[row+1][column],nmbrs[row+2][column]])
-        if sortedNums[0]+sortedNums[1]>sortedNums[2]:
-            triangles+=1
+print("Task1: ",sum([isTriangle(sorted(t)) for t in numbers]))
+print("Task2: ",sum([isTriangle(sorted([numbers[row][column],numbers[row+1][column],numbers[row+2][column]])) for row in range(0,len(numbers),3) for column in range(3)]))
 
-
-            
-print("Task1: ",nonTriangles)
-print("Task2: ",triangles)
 
