@@ -3,15 +3,15 @@ import re
 with open("inputs/day09.txt") as fp:
     compressedText=fp.read().strip()
 
-reg="\\((\\d+)x(\\d+)\\)"
+reg=re.compile(r'\((\d+)x(\d+)\)')
 
-def decompress(text:str,version: int):
+def decompress(text:str,version:int):
     skippedLength=text.find("(")
     if skippedLength==-1:
         return len(text)
     else:
-        length,times = tuple(map(int,re.search(reg,text).groups()))
-        markerlength=len(re.search(reg,text).group(0))
+        length,times = tuple(map(int,reg.search(text).groups()))
+        markerlength=len(reg.search(text).group(0))
         textafter = text[skippedLength+markerlength+length:]
         if (version==1):
             return skippedLength+length*times+decompress(textafter,1)

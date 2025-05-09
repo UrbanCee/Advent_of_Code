@@ -1,7 +1,7 @@
 import re
 
-botExpr = "bot (\\d+) gives low to (bot|output) (\\d+) and high to (bot|output) (\\d+)"
-inputExpr = "value (\\d+) goes to bot (\\d+)"
+botExpr = re.compile(r'bot (\d+) gives low to (bot|output) (\d+) and high to (bot|output) (\d+)')
+inputExpr = re.compile(r'value (\d+) goes to bot (\d+)')
 
 bots = {}
 outputs = {}
@@ -15,9 +15,9 @@ def addValueTo(dest,b,v):
         if b not in outputs.keys(): outputs[b] = [v]
         else: outputs[b] = outputs[b]+[v]
 
-for b,ld1,l1,hd1,h1 in re.findall(botExpr,cmds):
+for b,ld1,l1,hd1,h1 in botExpr.findall(cmds):
     bots[b]=(ld1,l1,hd1,h1,[])
-for v,b in re.findall(inputExpr,cmds):
+for v,b in inputExpr.findall(cmds):
     addValueTo("bot",b,int(v))
 
 outputs = {}
