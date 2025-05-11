@@ -7,8 +7,7 @@ input="dmypynyp"
 dirs={"U":(0,-1), "D":(0,1), "L":(-1,0), "R":(1,0)}
 dir2Pos={"U":0, "D":1, "L":2, "R":3}
 
-def possibleDirs(currPos,size):
-    possDirs=""
+def possibleDirs(currPos,size,possDirs=""):
     for k,v in dirs.items():
         newPos=vAdd(currPos,v)
         if newPos[0]>=0 and newPos[0]<size and newPos[1]>=0 and newPos[1]<size:

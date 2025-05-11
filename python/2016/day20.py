@@ -1,9 +1,8 @@
 import re
-
-rex = r'(\d+)\-(\d+)'
+rex = re.compile(r'(\d+)\-(\d+)')
 
 with open("inputs/day20.txt") as fp:
-    firewall=sorted([(int(lo),int(hi)) for line in fp.readlines() for lo,hi in re.findall(rex,line)])
+    firewall=sorted([(int(lo),int(hi)) for line in fp.readlines() for lo,hi in rex.findall(line)])
 
 protectedTo=0
 openCount=0

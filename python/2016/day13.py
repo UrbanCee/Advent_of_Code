@@ -4,8 +4,7 @@ from collections import deque as dq
 input=1362
 
 def isWall(v):
-    x,y=v[0],v[1]
-    value=x*x+3*x+2*x*y+y+y*y+input
+    value=v[0]*v[0]+3*v[0]+2*v[0]*v[1]+v[1]+v[1]*v[1]+input
     return sum([(value & divisor)>0 for divisor in [1<<power for power in range(64)]])%2==1
 
 dirs = [(1,0),(0,1),(-1,0),(0,-1)]

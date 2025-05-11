@@ -1,18 +1,7 @@
 #"row 2947, column 3029"
-row = 2947
-column = 3029
-
-
-def calcPos(r,c):
-    return sum([x for x in range(r+c)])-r+1
-
-
-def valueAtPos(r,c):
-    currentValue=20151125
-    multi=252533
-    divis=33554393
-    for i in range (calcPos(r,c)-1):
+def valueAtPos(r,c,currentValue,multi,divis):
+    for i in range (sum([x for x in range(r+c)])-r):
         currentValue=(currentValue*multi)%divis
     return currentValue
 
-print("Task1: ",valueAtPos(row,column))
+print("Task1: ",valueAtPos(2947,3029,20151125,252533,33554393))
