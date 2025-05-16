@@ -11,9 +11,7 @@ def run(regs,pc=0):
         ins,r,offset = program[pc]
         if ins in ops.keys():
             regs[r]=ops[ins](regs[r])
-        if ins == "jmp" or (ins == "jie" and regs[r]%2==0) or (ins == "jio" and regs[r]==1):
-            pc+=int(offset)
-        else: pc+=1
+        pc+=int(offset) if ins == "jmp" or (ins == "jie" and regs[r]%2==0) or (ins == "jio" and regs[r]==1) else 1
     return regs["b"]
 
 print("Task1:",run({"a":0, "b":0}))
