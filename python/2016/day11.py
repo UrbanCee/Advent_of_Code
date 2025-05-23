@@ -9,6 +9,4 @@ floors = [
 chips = {"s","p","t","r","c"}
 RTGs = {"S","P","T","R","C"}
 
-def checkSafe(floors):
-    
-    return False
+#obsolete, because minimum solution is best solution :(
