@@ -1,7 +1,7 @@
 with open("inputs/day08.txt") as fp:
     data=[int(x) for x in fp.read().strip().split(" ")]
 
-data = [2, 3, 0, 3, 10, 11, 12, 1, 1, 0, 1, 99, 2, 1, 1, 2]
+#data = [2, 3, 0, 3, 10, 11, 12, 1, 1, 0, 1, 99, 2, 1, 1, 2]
 
 class node:
     def __init__(self,pos,next,children,meta,value):
@@ -13,6 +13,7 @@ class node:
     pos = 0
     next = 0
     children = []
+    childrenValues = []
     meta = []
     value = 0
 
@@ -25,12 +26,18 @@ def parse_node(startPos):
     children = []
     for i in range(0,chNum):
         child = parse_node(childPos)
-        children.append(childPos)
+        children.append(child)
         childPos = child.next
-    metaCount += sum(data[childPos:childPos+metaNum])
-    return node(startPos,childPos+metaNum,children,data[childPos:childPos+metaNum],0)
+    metaData = data[childPos:childPos+metaNum]
+    metaCount += sum(metaData)
+    if len(children)==0:
+        value=sum(metaData)
+    else:
+        value=sum([children[index-1].value for index in metaData if index-1<len(children)])
+    return node(startPos,childPos+metaNum,children,data[childPos:childPos+metaNum],value)
 
-print(parse_node(0).children)
+basenode=parse_node(0)
 print("Task 1:",metaCount)
+print("Task 2:",basenode.value)
 
 
