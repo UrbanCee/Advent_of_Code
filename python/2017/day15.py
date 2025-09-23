@@ -22,5 +22,5 @@ def G2():
         while(b&7>0):b=nextB(b)
         yield (a,b)
 
-print("Task 1:",sum([match(g) for g in G2()]))
+print("Task 2:",sum([match(g) for g in G2()]))
 

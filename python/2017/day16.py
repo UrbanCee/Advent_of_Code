@@ -1,7 +1,5 @@
 import re
 rex = re.compile(r'([sxp])([0-9a-p]+)/?([0-9a-p]*)')
-#programs="abcde"
-#dance=[(m,p1,p2) for m,p1,p2 in rex.findall("s1,x3/4,pe/b")]
 programs="abcdefghijklmnop"
 knownPrograms={programs}
 with open("inputs/day16.txt") as fp:
@@ -23,8 +21,7 @@ print("Task 1:",programs)
 while programs not in knownPrograms:
     knownPrograms.add(programs)
     singleStep()
-for i in range(1000000000%len(knownPrograms)):
-    singleStep()
+for i in range(1000000000%len(knownPrograms)): singleStep()
 print("Task 2:",programs)
 
 
