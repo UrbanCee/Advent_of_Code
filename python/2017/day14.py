@@ -16,7 +16,7 @@ def knotHash(input):
     sparseHash = numberList[-pos:]+numberList[:-pos]
     return "".join(['{:02x}'.format(reduce(lambda x,y:x^y,sublist)) for sublist in [sparseHash[pos:pos+16] for pos in range(0,255,16)]])
 
-playfield=[c for num in [int(knotHash(input+"-"+str(i)),16) for i in range(128)] for c in ["#" if num&(1<<i) > 0 else "." for i in range(128)][::-1] ]
+playfield=[c for num in [int(knotHash(input+"-"+str(i)),16) for i in range(128)] for c in ["#" if num&(1<<i) > 0 else "." for i in range(127,-1,-1)] ]
 print("Task 1:",playfield.count("#"))
 
 currentRegion, s = 0, mySize(128,128)
@@ -26,9 +26,7 @@ while(playfield.count("#")>0):
     while queue:
         currIndx=queue.pop()
         playfield[currIndx]=str(currentRegion)
-        for dir in dirs4:
-            if not s.outOfBoundsPlusOffset(currIndx,dir) and playfield[s.addVecToInd(currIndx,dir)]=="#":
-                queue.append(s.addVecToInd(currIndx,dir))
+        queue.extend([s.addVecToInd(currIndx,dir) for dir in dirs4 if not s.outOfBoundsPlusOffset(currIndx,dir) and playfield[s.addVecToInd(currIndx,dir)]=="#"])
 
 print("Task 2:",currentRegion)
     
