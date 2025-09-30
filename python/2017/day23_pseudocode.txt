@@ -1,0 +1,35 @@
+b=99
+c=b
+if a!=0 skip next
+jump loop1
+b*=100
+b+=100.000
+c=b
+c+=17000
+
+loop1:
+f=1
+d=2
+e=2
+loop2:
+g=d
+g*=e
+g-=b
+if g!=0 skip next
+f=0
+e++
+g=e
+g-=b
+if g!=0 jump loop2
+d++
+g=d
+g-=b
+if g!=0 jump loop2
+if f!=0 skip
+h++
+g=b
+g-=c
+if g!=0 skip next
+end program
+b+=17
+jump loop1
