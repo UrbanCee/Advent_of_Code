@@ -4,6 +4,19 @@ def vSub(v1: tuple[int,int],v2: tuple[int,int]) -> tuple[int,int]:
     return (v1[0]-v2[0],v1[1]-v2[1])
 def vMul(v: tuple[int,int],f : int) -> tuple[int,int]:
     return (v[0]*f,v[1]*f) 
+def manDist(v: tuple[int,int]) -> int:
+    return abs(v[0])+abs(v[1])
+
+def v3Add(v1 : tuple[int,int,int],v2 : tuple[int,int,int]) -> tuple[int,int,int]:
+    return (v1[0]+v2[0],v1[1]+v2[1],v1[2]+v2[2])
+def v3Sub(v1 : tuple[int,int,int],v2 : tuple[int,int,int]) -> tuple[int,int,int]:
+    return (v1[0]-v2[0],v1[1]-v2[1],v1[2]-v2[2])
+def v3Mul(v: tuple[int,int,int],f : int) -> tuple[int,int,int]:
+    return (v[0]*f,v[1]*f,v[2]*f) 
+def man3Dist(v: tuple[int,int,int]) -> int:
+    return abs(v[0])+abs(v[1])+abs(v[2])
+
+
 
 class mySize:
     w,h=0,0
@@ -24,3 +37,10 @@ class mySize:
         return self.outOfBoundsv(vAdd(self.toVec(index),v))
     def addVecToInd(self,index:int,v:tuple[int,int]) -> int:
         return self.toIndv(vAdd(self.toVec(index),v))
+    def print(self,string):
+        for i in range(self.h):
+            print(string[i*self.w:(i+1)*self.w])
+            
+dirs8 = [(1,0),(1,1),(0,1),(-1,1),(-1,0),(-1,-1),(0,-1),(1,-1)]
+dirs4 = [(1,0),(0,1),(-1,0),(0,-1)]
+
