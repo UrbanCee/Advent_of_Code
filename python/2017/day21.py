@@ -37,6 +37,13 @@ def three2nine(ini3x3):
         if i==2: interm_count=interm.count("#")
     return (dict(Counter([extract(interm,9,3,x,y) for y in range(3) for x in range(3)])),interm_count)
 
-print(three2nine(start)[0])
+first3 = three2nine(start)[0]
+count=0
+for key,value in first3.items():
+    print(key,value)
+    count+=value*three2nine(key)[1]
+    print(three2nine(key))
+print("Task 1:",count)
+
 
 
