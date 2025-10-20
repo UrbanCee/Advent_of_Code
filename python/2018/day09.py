@@ -1,25 +1,21 @@
 from collections import deque
-players =479
-lastScore = 71035
 
-currentMarble = 3
-circle = [0,2,1]
-currentIndex = 1
-currentPlayerIndex = 2
-score = dict()
+def marble_game(players,highestMarble):
+    marbleCircle = deque([0])
+    score = dict()
+    for i in range(1,highestMarble):
+        if i%23!=0:
+            marbleCircle.rotate(1)
+            marbleCircle.appendleft(i)
+        else:
+            marbleCircle.rotate(-7)
+            score[i%players]=score.get(i%players,0)+i+marbleCircle.popleft()
+            marbleCircle.rotate(1)
+    return score
 
-while currentMarble<=lastScore:
-    if (currentMarble%23==0):
-        currentIndex=(currentIndex-7+len(circle))%(len(circle))
-        score[currentPlayerIndex]=score.get(currentPlayerIndex,0)+currentMarble+circle[currentIndex]
-        circle=circle[:currentIndex]+circle[currentIndex+1:]
-    else:
-        currentIndex=(currentIndex+1)%(len(circle))+1
-        circle.insert(currentIndex,currentMarble)
-    currentMarble+=1
-    currentPlayerIndex=(currentPlayerIndex+1)%players
+players,highestMarble=479,71035
+print("Task 1:",max(marble_game(players,highestMarble).values()))
+print("Task 2:",max(marble_game(players,highestMarble*100).values()))
 
-print("Task 1: ",score[max(score,key=lambda k:score[k])])
-    
 
 
