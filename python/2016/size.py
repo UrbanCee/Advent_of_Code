@@ -29,3 +29,9 @@ class mySize:
     def print(self,string):
         for i in range(self.h):
             print(string[i*self.w:(i+1)*self.w])
+
+dirs8 = [(1,0),(1,1),(0,1),(-1,1),(-1,0),(-1,-1),(0,-1),(1,-1)]
+dirs4 = [(1,0),(0,1),(-1,0),(0,-1)]
+
+def charInv(line:str,inv={}):
+    return {ch:line.count(ch) for ch in line}
