@@ -2,7 +2,7 @@ from size import *
 from collections import Counter
 with open("inputs/day18.txt") as fp:
     playfield = "".join(s.strip() for s in fp.readlines() if len(s)>0)
-s = mySize(50,50)
+s,storedPlayfields = mySize(50,50),{playfield:0}
 def neighbors(currentStep,index):
     return dict(Counter([currentStep[s.addVecToInd(index,dir)] for dir in dirs8 if not s.outOfBoundsPlusOffset(index, dir) ]    ))
 def evolveCell(cell,neighbors):
@@ -12,7 +12,6 @@ def evolveCell(cell,neighbors):
 def timestep(currentStep):
     return "".join([evolveCell(currentStep[i],neighbors(currentStep,i)) for i in range(len(currentStep)) ])
 
-storedPlayfields = {playfield:0}
 for i in range(1,10000):
     playfield=timestep(playfield)
     if i==10: print("Task1:",playfield.count("|")*playfield.count("#"))
