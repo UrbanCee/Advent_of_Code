@@ -25,21 +25,10 @@ def checkOverflow(source,water,sources):
                 sources.append((x,source[1]))
                 break
 
-water=set()
+water={(500,0)}
 sources=deque()
 sources.append((500,0))
 
-
-while len(sources)>0:
-    fillPoint = startFill(sources.popleft(),water)
-    if (fillPoint[1]<0): continue #end reached
-    sourcelen=len(sources)
-    while len(sources)==sourcelen:
-        checkOverflow(fillPoint,water,sources)
-        fillPoint=(fillPoint[0],fillPoint[1]-1)
-    print(sources)
-    print("*******************************************************************************")
-    printVessels(water)
 
 
 print("Task 1:",len(water))
