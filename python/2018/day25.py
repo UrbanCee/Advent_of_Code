@@ -20,6 +20,6 @@ for i in range(len(points)):
         constellation.add(p)
         q.extend(p1 for p1 in proxymap[p] if p1 not in constellation)
     constellations.append(constellation)
-    processed = processed.union(constellation)
+    processed = processed | constellation
 
 print("Task 1:",len(constellations))
