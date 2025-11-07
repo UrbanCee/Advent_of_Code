@@ -1,3 +1,5 @@
+import math
+
 def vAdd(v1 : tuple[int,int],v2 : tuple[int,int]) -> tuple[int,int]:
     return (v1[0]+v2[0],v1[1]+v2[1])
 def vSub(v1: tuple[int,int],v2: tuple[int,int]) -> tuple[int,int]:
@@ -15,6 +17,8 @@ def v3Mul(v: tuple[int,int,int],f : int) -> tuple[int,int,int]:
     return (v[0]*f,v[1]*f,v[2]*f) 
 def man3Dist(v: tuple[int,int,int]) -> int:
     return abs(v[0])+abs(v[1])+abs(v[2])
+def findBase(v: tuple[int,int]):
+    return (v[0]//math.gcd(v[0],v[1]),v[1]//math.gcd(v[0],v[1]))
 
 
 class mySize:
