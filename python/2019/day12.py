@@ -11,17 +11,17 @@ def calcVelChange(pos1:tuple[int,int,int],pos2:tuple[int,int,int],c:int):
 def move(pos,vel):
     for pair in [(i,j) for i in range(len(pos)) for j in range(len(pos)) if i!=j]:
         vel[pair[0]]=tuple([vel[pair[0]][c]+calcVelChange(pos[pair[0]],pos[pair[1]],c) for c in range(3)]) 
-    return [v3Add(pos[i],vel[i]) for i in range(len(pos))]  
-def nrg(t): return sum(int(abs(t[i])) for i in range(len(t)))
+    return [v3Add(pi,vel[i]) for i,pi in enumerate(pos)]  
+def nrg(t): return sum(int(abs(ti)) for ti in t)
 
 pos, cyclic, steps =list(startpos),[0,0,0],0
-vel=[(0,0,0) for _ in range(len(pos))]
+vel=[(0,0,0)]*len(pos)
 while(cyclic[0]*cyclic[1]*cyclic[2]==0):
     pos=move(pos,vel)
     steps+=1
-    if steps==1000: print("Task 1:",sum(nrg(pos[i])*nrg(vel[i]) for i in range(len(pos))))
+    if steps==1000: print("Task 1:",sum(nrg(pi)*nrg(vel[i]) for i,pi in enumerate(pos)))
     for c in [i for i in range(3) if cyclic[i]==0]:
-        if sum(pos[i][c]==startpos[i][c] for i in range(len(pos)))==4:
+        if sum(pi[c]==startpos[i][c] for i,pi in enumerate(pos))==4:
             cyclic[c]=steps+1
 print("Task 2:",math.lcm(*cyclic))
 

@@ -15,7 +15,7 @@ def visibleAsteroids(field,a,vaporized):
     return [p for p in range(len(field)) if a!=p and field[p]!="." and closestInDir(field,s.toVec(a),findBase(vSub(s.toVec(p),s.toVec(a))),vaporized)==s.toVec(p)]
 
 vaporized=set()
-bestStation=max( [(len(visibleAsteroids(field,a,set())),a) for a in range(len(field)) if field[a]!="."],key=lambda x:x[0])
+bestStation=max( [(len(visibleAsteroids(field,a,set())),a) for a,fa in enumerate(field) if fa!="."],key=lambda x:x[0])
 
 print("Task 1: location",s.toVec(bestStation[1]),"sees other asteroids:",bestStation[0])
 while len(vaporized)<200:
