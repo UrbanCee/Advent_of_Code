@@ -2,7 +2,7 @@
 input,rec,pos=540561,[3,7],(0,1)
 
 def drawCurrent(rec,pos):
-    print(["("+str(rec[i])+")" if i==pos[0] else ("["+str(rec[i])+"]" if i==pos[1] else rec[i]) for i in range(len(rec))])
+    print(["("+str(ri)+")" if i==pos[0] else ("["+str(ri)+"]" if i==pos[1] else ri) for i,ri in enumerate(rec)])
 
 def newRec(rec:list,pos):
     newRec = rec[pos[0]]+rec[pos[1]]

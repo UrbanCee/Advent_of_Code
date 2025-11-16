@@ -10,7 +10,7 @@ def evolveCell(cell,neighbors):
     if cell=="|": return "#" if neighbors.get("#",0)>=3 else "|"
     else: return "#" if neighbors.get('#',0)>=1 and neighbors.get("|",0)>=1 else "."
 def timestep(currentStep):
-    return "".join([evolveCell(currentStep[i],neighbors(currentStep,i)) for i in range(len(currentStep)) ])
+    return "".join([evolveCell(csi,neighbors(currentStep,i)) for i,csi in enumerate(currentStep) ])
 
 for i in range(1,10000):
     playfield=timestep(playfield)

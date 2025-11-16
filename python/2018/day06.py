@@ -4,7 +4,7 @@ from collections import Counter
 with open("inputs/day06.txt") as fp:
     coords = [(int(x),int(y)) for line in fp.readlines() for x,y in re.compile(r'(\d+), (\d+)').findall(line)]
 def minindex(pos):
-    distInd=[(manDist(vSub(pos,coords[i])),i) for i in range(len(coords))]
+    distInd=[(manDist(vSub(pos,ci)),i) for i,ci in enumerate(coords)]
     mindist = min(distInd,key=lambda d:d[0])
     return mindist[1] if sum([dI[0]==mindist[0] for dI in distInd ])==1 else -1
 s = mySize(max([x for x,_ in coords])+2,max([y for _,y in coords])+2)

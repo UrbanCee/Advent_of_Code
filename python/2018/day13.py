@@ -6,7 +6,7 @@ with open("inputs/day13.txt") as fp:
     carts = sorted([(index,dirmap[playfield[index]],0,True) for index in range(len(playfield)) if playfield[index]in dirmap],key=lambda x:x[0])
     playfield=playfield.replace(">","-").replace("<","-").replace("^","|").replace("v","|")
 while len(carts)>1:
-    for i in range(len(carts)):
+    for i,_ in enumerate(carts):
         index,dir,nextturn,alife = carts[i]
         if not alife:
             continue
