@@ -17,6 +17,8 @@ def v3Mul(v: tuple[int,int,int],f : int) -> tuple[int,int,int]:
     return (v[0]*f,v[1]*f,v[2]*f) 
 def man3Dist(v: tuple[int,int,int]) -> int:
     return abs(v[0])+abs(v[1])+abs(v[2])
+def v3Len(v: tuple[int,int,int]) -> int:
+    return (v[0]*v[0]+v[1]*v[1]+v[2]*v[2])**0.5
 def findBase(v: tuple[int,int]):
     return (v[0]//math.gcd(v[0],v[1]),v[1]//math.gcd(v[0],v[1]))
 
