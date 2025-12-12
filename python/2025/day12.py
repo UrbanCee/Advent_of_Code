@@ -1,7 +1,7 @@
 import re
-with open("inputs/day12_train.txt") as fp:
+with open("inputs/day12.txt") as fp:
     input=fp.read()
-    treeArray = list(zip(*[iter([line for line in re.findall(r'([.#]+)',input)])]*3))
+    shapes = ["".join(a) for a in list(zip(*[iter([line for line in re.findall(r'([.#]+)',input)])]*3))]
     packings = [(int(w),int(h),[int(amnt) for amnt in amnts.strip().split()]) for w,h,amnts in re.findall(r'(\d+)x(\d+):([ \d]+)',input)]
-print(treeArray)
-print(packings)
+
+print("Task 1:",sum(x*y>sum(s.count("#")*amts[i] for i,s in enumerate(shapes)) for x,y,amts in packings))
